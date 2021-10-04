@@ -26,6 +26,10 @@ class Utilisateur
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,6 +75,22 @@ class Utilisateur
         $this->pwd = $pwd;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
+    {
+        $this->email = $email;
     }
 
 }
