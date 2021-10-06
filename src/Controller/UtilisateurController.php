@@ -39,14 +39,14 @@ class UtilisateurController extends AbstractController
             return $this->json(['data' => $utilisateur]);
     }
     /**
-     * @Route("/utilisateur/login", name="login")
+     * @Route("/utilisateur/login/{email}/{pwd}", name="login")
      */
-    public function login(Request  $request): Response
+    public function login(Request  $request,$email,$pwd): Response
     {
         $request = $this->transformJsonBody($request);
         $utilsateur = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
-            ->findOneBy(["email"=>$request->get('email'),"pwd"=>$request->get('pwd')]);
+            ->findOneBy(["email"=>$email,"pwd"=>$pwd]);
         return $this->json(['data' => $utilsateur]);
     }
 }
