@@ -28,12 +28,12 @@ class Carnet
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float" , nullable=true)
      */
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $region;
 
@@ -66,7 +66,7 @@ class Carnet
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelephone(): ?float
     {
         return $this->telephone;
     }

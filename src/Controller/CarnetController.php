@@ -51,6 +51,15 @@ class CarnetController extends AbstractController
             'data' => $carnetFormated,
         ]);
     }
+    public function newCarnet($carnet,$request):void{
+        $carnet->setNom($request->get('nom'));
+        $carnet->setPrenom($request->get('prenom'));
+        $carnet->setRegion($request->get('region'));
+        $carnet->setTelephone((int)$request->get('telephone'));
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($carnet);
+        $entityManager->flush();
+    }
     /**
      * @Route("/carnet/new", name="carnet")
      */
@@ -62,29 +71,14 @@ class CarnetController extends AbstractController
             ->getRepository(Carnet::class)
             ->findOneBySomeField($request->get('nom') ,$request->get('prenom'),$request->get('telephone'));
         $carnet=new Carnet();
-        if($carnets["carnet"]!=null)
+        if($carnets["carnet"]==null)
         {
-
-            if($carnets["nbr"]<2 && $carnets["carnet"]->getNom()!=$request->get('nom') && $carnets["carnet"]->getPrenom()!=$request->get('prenom'))
-            {
-                $carnet->setNom($request->get('nom'));
-                $carnet->setPrenom($request->get('prenom'));
-                $carnet->setRegion($request->get('region'));
-                $carnet->setTelephone((int)$request->get('telephone'));
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($carnet);
-                $entityManager->flush();
-            }
+            $this->newCarnet($carnet,$request);
         }
-        else
+        else if($carnets["nbr"]<2 && $carnets["carnet"]->getNom()!=$request->get('nom') && $carnets["carnet"]->getPrenom()!=$request->get('prenom'))
         {
-            $carnet->setNom($request->get('nom'));
-            $carnet->setPrenom($request->get('prenom'));
-            $carnet->setRegion($request->get('region'));
-            $carnet->setTelephone((int)$request->get('telephone'));
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($carnet);
-            $entityManager->flush();
+            $this->newCarnet($carnet,$request);
+
         }
         return $this->json([
             'data' =>$carnet ,
@@ -93,7 +87,7 @@ class CarnetController extends AbstractController
 
 
         /**
-         * @Route("/carnet/delete/{id}", name="CarnetDelete", methods={"GET"})
+         * @Route("/carnet/delete/{id}", name="CarnetDelete", methods={"DELETE"})
          */
         public function delete($id): Response
     {
