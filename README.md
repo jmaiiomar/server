@@ -1,4 +1,4 @@
-# server VIDMIZE-test
+# server VIDMIZER-test
 
 
 <p align="center">
