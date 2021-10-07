@@ -8,8 +8,13 @@
 # 💡 About
 mini-application create with symfony4.4 and angular 9 , the projet contain authentification module ( register / login ) and addres-book module ( add / delete / search / order ) also the project contain i18n module that allow us to translate the content of our application (Eng/Fr).
 
-# Usage
- 
+# 🔧 Installation & Usage
+-Clone the Master branch
+-Go to main directory by typing "cd server" and run "composer install"
+-Run you database server (wamp or xampp )
+-Run " php bin/console doctrine:database:create "
+-Run " php bin/console doctrine:migrations:migrate "
+-Run " symfony server:start "
  
 # 📝Credit
 
